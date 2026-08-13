@@ -1,7 +1,7 @@
 package main
 
 import (
-    
+
     "fmt"
 )
 
@@ -16,12 +16,7 @@ func main() {
     fmt.Println("===== CONTROLE DE ESTOQUE =====")
     fmt.Println("1 - Cadastrar produto")
     fmt.Println("2 - Listar produtos")
-    fmt.Println("3 - Buscar produto")
-    fmt.Println("4 - Adicionar estoque")
-    fmt.Println("5 - Remover estoque")
-    fmt.Println("6 - Valor total")
     fmt.Println("0 - Sair")
-
     fmt.Print("Escolha uma opção: ")
 
     var opcao int
@@ -34,28 +29,29 @@ func main() {
         var codigo int
         var quantidade int
 
-        fmt.Println("Nome do produto: ")
+        fmt.Print("Nome do produto: ")
         fmt.Scanln(&nome)
-        fmt.Println("Preco: ")
+        fmt.Print("Preço: ")
         fmt.Scanln(&preco)
-        fmt.Println("Codigo: ")
+        fmt.Print("Código: ")
         fmt.Scanln(&codigo)
-        fmt.Println("Quantidade: ")
+        fmt.Print("Quantidade: ")
         fmt.Scanln(&quantidade)
 
-        product := Product {
+        product := Product{
             Name:     nome,
             Price:    preco,
             Code:     codigo,
-            Quantity: quantidade,  
+            Quantity: quantidade,
         }
 
+        // Aqui você chamaria seu product_repository pra salvar
+        // ex: productRepo.Create(product)
         fmt.Println("Produto cadastrado:", product)
 
-case 0:
-    fmt.Println("Produto nao cadastrado")
-default:
-    fmt.Println("Opcao invalida: ")
-
+    case 0:
+        fmt.Println("Saindo...")
+    default:
+        fmt.Println("Opção inválida")
     }
 }
