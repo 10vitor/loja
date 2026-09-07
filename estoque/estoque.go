@@ -8,14 +8,17 @@ import (
 )
 
 const arquivoProdutos = "estoque.json"
-var Estoque = make(map[int]*produtos.Produto)
+var Estoque = make(map[int]*produtos.Product)
 
 func carregarEstoque() {
 	dados, err := os.ReadFile(arquivoProdutos)
 	if err != nil {
-		Estoque[100] = &produtos.Produto{Código: 100, Nome: "Produto 1", Preço: 79.90,
-	Quantidade: 10}
-		SalvarEsqtoque()
+		Estoque[100] = &produtos.Product{
+		Code: 100,
+		Name: "Camisa Polo",
+		Price: 79.90,
+		Quantity: 10}
+		SalvarEstoque()
 		return
 	}
 	json.Unmarshal(dados, &Estoque)
@@ -23,15 +26,15 @@ func carregarEstoque() {
 }
 
 func SalvarEstoque() {
-	dados, err := json.MarshalIndent(Estoque, "", "  ")
-	os.WriteFile(arquivos, dados, 0644)
+	dados, _ := json.MarshalIndent(Estoque, "", "  ")
+	os.WriteFile(arquivoProdutos, dados, 0644)
 }
 
-func CadastrarProduto(p *produtos.Produto) error {
-	if _, existe := Estoque[p.Código]; existe {
+func CadastrarProduto(p *produtos.Product) error {
+	if _, existe := Estoque[p.Code]; existe {
 		return errors.New("Código já existe")
 	}
-	Estoque[p.Código] = p
+	Estoque[p.Code] = p
 	SalvarEstoque()
 	return nil
 }
@@ -41,7 +44,7 @@ func adicionarEstoque(codigo int, quantidade int) error {
 	if !existe {
 		return errors.New("Produto não encontrado")
 	}
-	p.Quantidade += quantidade
+	p.Quantity += quantidade
 	SalvarEstoque()
 	return nil
 }
@@ -51,15 +54,15 @@ func removerEstoque(codigo int, quantidade int) error {
 	if !existe {
 		return errors.New("Produto não encontrado")
 	}
-	if quantidade > p.Quantidade {
+	if quantidade > p.Quantity {
 		return errors.New("Quantidade insuficiente em estoque")
 	}
-	p.Quantidade -= quantidade
+	p.Quantity -= quantidade
 	SalvarEstoque()
 	return nil
 }
 
-func buscarProduto(codigo int) (*produtos.Produto, bool) {
+func buscarProduto(codigo int) (*produtos.Product, bool) {
 	p, ok := Estoque[codigo]
 	return p, ok
 }
@@ -67,7 +70,7 @@ func buscarProduto(codigo int) (*produtos.Produto, bool) {
 func calcularValorTotalEstoque() float64 {
 	var total float64
 	for _, p := range Estoque {
-		total += p.ValorTotal()
+		total += p.TotalValue()
 	}
 	return total
 }
