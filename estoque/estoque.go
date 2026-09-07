@@ -1,6 +1,11 @@
 package estoque
 
-import "os"
+import (
+	"encoding/json"
+	"errors"
+	"loja/produtos"
+	"os"
+)
 
 const arquivoProdutos = "estoque.json"
 var Estoque = make(map[int]*produtos.Produto)
