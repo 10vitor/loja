@@ -1,3 +1,11 @@
+//Requisitos do estoque da loja:
+//Cadastrar produtos com nome, preço, código e quantidade;
+//Listar produtos cadastrados;
+//Buscar produtos por código;
+//Adicionar e remover estoque;
+//Validar se o produto existe antes de adicionar ou remover estoque;
+//Calcular o valor total de cada item e do estoque.
+
 package main
 
 import (
@@ -10,6 +18,12 @@ type Product struct{
     Price    float64
     Code     int
     Quantity int
+}
+
+type Pedido struct{
+    Cliente Cliente*
+    Produto Produto*
+    Quantidade int 
 }
 
 func main() {
@@ -42,13 +56,6 @@ func main() {
         fmt.Scanln(&codigo)
         fmt.Println("Quantidade: ")
         fmt.Scanln(&quantidade)
-
-        product := Product {
-            Name:     nome,
-            Price:    preco,
-            Code:     codigo,
-            Quantity: quantidade,  
-        }
 
         fmt.Println("Produto cadastrado:", product)
 
