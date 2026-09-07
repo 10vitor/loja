@@ -9,8 +9,9 @@
 package main
 
 import (
-    
     "fmt"
+    "loja/produtos"
+    "loja/estoque"
 )
 
 type Product struct{
@@ -18,12 +19,6 @@ type Product struct{
     Price    float64
     Code     int
     Quantity int
-}
-
-type Pedido struct{
-    Cliente Cliente*
-    Produto Produto*
-    Quantidade int 
 }
 
 func main() {
@@ -57,7 +52,14 @@ func main() {
         fmt.Println("Quantidade: ")
         fmt.Scanln(&quantidade)
 
-        fmt.Println("Produto cadastrado:", product)
+        produto := Product{
+            Name:     nome,
+            Price:    preco,
+            Code:     codigo,
+            Quantity: quantidade, 
+        }
+
+        fmt.Println("Produto cadastrado:", produto)
 
 case 0:
     fmt.Println("Produto nao cadastrado")
