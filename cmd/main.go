@@ -33,14 +33,22 @@ func main() {
 
     fmt.Print("Escolha uma opção: ")
 
+    estoque := []Product{
+        {Name: "Camiseta", Price: 59.99, Code: 111, Quantity: 10},
+        {Name: "Calça Jeans", Price: 99.99, Code: 222, Quantity: 5},
+        {Name: "Tênis", Price: 149.99, Code: 333, Quantity: 8},
+    }
+
+    fmt.Println("No meu estoque tem", len(estoque), "produtos")
+
     var opcao int
     fmt.Scanln(&opcao)
 
     switch opcao {
     case 1:
-        var nome string
-        var preco float64
-        var codigo int
+        var nome       string
+        var preco      float64
+        var codigo     int
         var quantidade int
 
         fmt.Println("Nome do produto: ")
