@@ -10,69 +10,79 @@ package main
 
 import (
     "fmt"
-    "loja/produtos"
-    "loja/estoque"
+    "loja/internal/product"
+    "loja/internal/product/inventory"
 )
 
-type Product struct{
-    Name     string
-    Price    float64
-    Code     int
-    Quantity int
-}
-
 func main() {
+
+    estoque := inventory.Inventory{}
+
+    for {
+
     fmt.Println("===== CONTROLE DE ESTOQUE =====")
-    fmt.Println("1 - Cadastrar produto")
+
+    fmt.Println("1 - Cadastrar produtos")
     fmt.Println("2 - Listar produtos")
     fmt.Println("3 - Buscar produto")
     fmt.Println("4 - Adicionar estoque")
     fmt.Println("5 - Remover estoque")
-    fmt.Println("6 - Valor total")
+    fmt.Println("6 - Calcular valor total")
     fmt.Println("0 - Sair")
 
     fmt.Print("Escolha uma opção: ")
-
-    estoque := []Product{
-        {Name: "Camiseta", Price: 59.99, Code: 111, Quantity: 10},
-        {Name: "Calça Jeans", Price: 99.99, Code: 222, Quantity: 5},
-        {Name: "Tênis", Price: 149.99, Code: 333, Quantity: 8},
-    }
-
-    fmt.Println("No meu estoque tem", len(estoque), "produtos")
 
     var opcao int
     fmt.Scanln(&opcao)
 
     switch opcao {
+
     case 1:
-        var nome       string
-        var preco      float64
-        var codigo     int
+
+        var nome string
+        var preco float64
+        var codigo int
         var quantidade int
 
-        fmt.Println("Nome do produto: ")
+        fmt.Print("Nome do produto: ")
         fmt.Scanln(&nome)
-        fmt.Println("Preco: ")
+
+        fmt.Print("Preço: ")
         fmt.Scanln(&preco)
-        fmt.Println("Codigo: ")
+
+        fmt.Print("Código: ")
         fmt.Scanln(&codigo)
-        fmt.Println("Quantidade: ")
+
+        fmt.Print("Quantidade: ")
         fmt.Scanln(&quantidade)
 
-        produto := Product{
+        produto := product.Product{
             Name:     nome,
             Price:    preco,
             Code:     codigo,
-            Quantity: quantidade, 
+            Quantity: quantidade,
         }
+
+        estoque.AddProduct(produto)
 
         fmt.Println("Produto cadastrado:", produto)
 
-case 0:
-    fmt.Println("Produto nao cadastrado")
-default:
-    fmt.Println("Opcao invalida: ")
+    case 2:
+    fmt.Println("===== PRODUTOS EM ESTOQUE =====")
+
+    for _, produto := range estoque.Products {
+        fmt.Println("Nome:", produto.Name)
+        fmt.Println("Preço:", produto.Price)
+        fmt.Println("Código:", produto.Code)
+        fmt.Println("Quantidade:", produto.Quantity)
 
     }
+
+    case 0:
+        fmt.Println("Saindo...")
+
+    default:
+        fmt.Println("Opção inválida")
+    }
+}
 }
