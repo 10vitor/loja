@@ -8,9 +8,9 @@ import (
 
 type Product struct {
 	Name     string   `json:"name"`
-	Price    float64 `json:"price"`
+	Price    float64  `json:"price"`
 	Code     int      `json:"code"`
-	Quantity int  `json:"quantity"`
+	Quantity int  	  `json:"quantity"`
 }
 
 func RegisterProduct(products []Product) []Product {

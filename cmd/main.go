@@ -18,6 +18,11 @@ func main() {
 
     estoque := inventory.Inventory{}
 
+    err := estoque.Load()
+    if err != nil {
+        fmt.Println("Nenhum estoque encontrado.")
+    }
+
     for {
 
     fmt.Println("===== CONTROLE DE ESTOQUE =====")
@@ -65,6 +70,14 @@ func main() {
 
         estoque.AddProduct(produto)
 
+        err := estoque.Save()
+
+        if err != nil {
+	        fmt.Println("Erro ao salvar estoque:", err)
+        } else {
+	        fmt.Println("Produto cadastrado e salvo!")
+        }
+
         fmt.Println("Produto cadastrado:", produto)
 
     case 2:
@@ -80,6 +93,7 @@ func main() {
 
     case 0:
         fmt.Println("Saindo...")
+        return
 
     default:
         fmt.Println("Opção inválida")

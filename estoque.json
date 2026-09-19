@@ -1,0 +1,10 @@
+{
+    "products": [
+        {
+            "name": "Camisa polo",
+            "price": 79.90,
+            "code": 111,
+            "quantity": 10
+        }
+    ]
+}
