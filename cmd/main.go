@@ -12,6 +12,7 @@ import (
     "fmt"
     "loja/internal/product"
     "loja/internal/product/inventory"
+
 )
 
 func main() {
@@ -19,8 +20,11 @@ func main() {
     estoque := inventory.Inventory{}
 
     err := estoque.Load()
+
     if err != nil {
         fmt.Println("Nenhum estoque encontrado.")
+    } else {
+        fmt.Println("Estoque carregado com sucesso!")
     }
 
     for {
@@ -75,7 +79,7 @@ func main() {
         if err != nil {
 	        fmt.Println("Erro ao salvar estoque:", err)
         } else {
-	        fmt.Println("Produto cadastrado e salvo!")
+	        fmt.Println("Estoque salvo com sucesso!")
         }
 
         fmt.Println("Produto cadastrado:", produto)
@@ -83,12 +87,37 @@ func main() {
     case 2:
     fmt.Println("===== PRODUTOS EM ESTOQUE =====")
 
+    if len(estoque.Products) == 0 {
+        fmt.Println("Nenhum produto cadastrado.")
+        continue
+    }
+
     for _, produto := range estoque.Products {
         fmt.Println("Nome:", produto.Name)
         fmt.Println("Preço:", produto.Price)
         fmt.Println("Código:", produto.Code)
         fmt.Println("Quantidade:", produto.Quantity)
 
+    }
+
+case 3:
+    var codigo int
+    fmt.Print("Digite o código do produto: ")
+    fmt.Scanln(&codigo)
+
+    encontrado := false
+
+    for _, produto := range estoque.Products {
+
+        if produto.Code == codigo {
+            fmt.Println("=== PRODUTO ENCONTRADO ===")
+            fmt.Println("Nome:", produto.Name)
+            fmt.Println("Preço:", produto.Price)
+            fmt.Println("Código:", produto.Code)
+            fmt.Println("Quantidade:", produto.Quantity)
+            encontrado = true
+            break
+        }
     }
 
     case 0:
