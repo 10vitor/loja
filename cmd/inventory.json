@@ -1,10 +1,10 @@
 {
     "products": [
         {
-            "name": "carro",
-            "price": 250,
-            "code": 250,
-            "quantity": 2
+            "name": "MOLETOM",
+            "price": 99.9,
+            "code": 333,
+            "quantity": 1
         }
     ]
 }

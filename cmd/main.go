@@ -47,7 +47,7 @@ func main() {
     switch opcao {
 
     case 1:
-
+    // CADASTRO
         var nome string
         var preco float64
         var codigo int
@@ -85,6 +85,7 @@ func main() {
         fmt.Println("Produto cadastrado:", produto)
 
     case 2:
+    // LISTAGEM
     fmt.Println("===== PRODUTOS EM ESTOQUE =====")
 
     if len(estoque.Products) == 0 {
@@ -100,7 +101,8 @@ func main() {
 
     }
 
-case 3:
+    case 3:
+    // BUSCA
     var codigo int
     fmt.Print("Digite o código do produto: ")
     fmt.Scanln(&codigo)
@@ -115,11 +117,15 @@ case 3:
             fmt.Println("Preço:", produto.Price)
             fmt.Println("Código:", produto.Code)
             fmt.Println("Quantidade:", produto.Quantity)
+
             encontrado = true
             break
         }
     }
 
+    if !encontrado {
+        fmt.Println("Produto não encontrado.")
+    }
     case 0:
         fmt.Println("Saindo...")
         return
