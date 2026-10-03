@@ -1,10 +1,10 @@
 {
     "products": [
         {
-            "name": "MOLETOM",
-            "price": 99.9,
-            "code": 333,
-            "quantity": 1
+            "name": "short",
+            "price": 50,
+            "code": 444,
+            "quantity": 5
         }
     ]
 }

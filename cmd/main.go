@@ -95,30 +95,64 @@ func main() {
 
     for _, produto := range estoque.Products {
         fmt.Println("Nome:", produto.Name)
-        fmt.Println("Preço:", produto.Price)
-        fmt.Println("Código:", produto.Code)
         fmt.Println("Quantidade:", produto.Quantity)
 
     }
 
-    case 3:
+    case 3: { 
     // BUSCA
+        var codigo int
+        fmt.Print("Digite o código do produto: ")
+        fmt.Scanln(&codigo)
+
+        encontrado := false
+
+        for _, produto := range estoque.Products {
+
+            if produto.Code == codigo {
+                fmt.Println("=== PRODUTO ENCONTRADO ===")
+                fmt.Println("Nome:", produto.Name)
+                fmt.Println("Preço:", produto.Price)
+                fmt.Println("Código:", produto.Code)
+                fmt.Println("Quantidade:", produto.Quantity)
+
+                encontrado = true
+                break
+        }
+    }
+    if !encontrado {
+        fmt.Println("Produto não encontrado.")
+    }
+    }
+    case 4: {
     var codigo int
+    var quantidade int
+
     fmt.Print("Digite o código do produto: ")
     fmt.Scanln(&codigo)
 
+    fmt.Print("Quantidade para adicionar: ")
+    fmt.Scanln(&quantidade)
+
     encontrado := false
 
-    for _, produto := range estoque.Products {
+    for i := range estoque.Products {
 
-        if produto.Code == codigo {
-            fmt.Println("=== PRODUTO ENCONTRADO ===")
-            fmt.Println("Nome:", produto.Name)
-            fmt.Println("Preço:", produto.Price)
-            fmt.Println("Código:", produto.Code)
-            fmt.Println("Quantidade:", produto.Quantity)
+        if estoque.Products[i].Code == codigo {
+
+            estoque.Products[i].Quantity += quantidade
 
             encontrado = true
+
+            err := estoque.Save()
+
+            if err != nil {
+                fmt.Println("Erro ao salvar estoque:", err)
+            } else {
+                fmt.Println("Estoque atualizado com sucesso!")
+                fmt.Println("Quantidade atual:", estoque.Products[i].Quantity)
+            }
+
             break
         }
     }
@@ -126,6 +160,67 @@ func main() {
     if !encontrado {
         fmt.Println("Produto não encontrado.")
     }
+
+    if !encontrado {
+        fmt.Println("Produto não encontrado.")
+    }
+    }
+
+    case 5: {
+    var codigo int
+    var quantidade int
+
+    fmt.Print("Digite o código do produto: ")
+    fmt.Scanln(&codigo)
+
+    fmt.Print("Quantidade para remover: ")
+    fmt.Scanln(&quantidade)
+
+    encontrado := false
+
+    for i := range estoque.Products {
+
+        if estoque.Products[i].Code == codigo {
+
+            if quantidade > estoque.Products[i].Quantity {
+                fmt.Println("Quantidade insuficiente em estoque.")
+                encontrado = true
+                break
+            }
+
+            estoque.Products[i].Quantity -= quantidade
+
+            encontrado = true
+
+            err := estoque.Save()
+
+            if err != nil {
+                fmt.Println("Erro ao salvar estoque:", err)
+            } else {
+                fmt.Println("Estoque atualizado com sucesso!")
+                fmt.Println("Quantidade atual:", estoque.Products[i].Quantity)
+            }
+
+            break
+        }
+    }
+
+    if !encontrado {
+        fmt.Println("Produto não encontrado.")
+    }
+    }
+
+    case 6: {
+    var valorTotal float64
+
+    for _, produto := range estoque.Products {
+        valorTotal += produto.Price * float64(produto.Quantity)
+    }
+
+    fmt.Println("===== VALOR TOTAL DO ESTOQUE =====")
+    fmt.Printf("Valor total: R$ %.2f\n", valorTotal)
+}
+
     case 0:
         fmt.Println("Saindo...")
         return
